@@ -42,6 +42,13 @@ namespace DataAccess.Concrete.EntityFramework
                      : context.Set<Brand>().Where(filter).ToList();
             }
         }
+        public Brand Get(Expression<Func<Brand, bool>> filter)
+        {
+            using (RentACarContext context = new RentACarContext())
+            {
+                return context.Set<Brand>().SingleOrDefault(filter);
+            }
+        }
 
         public void Update(Brand entity)
         {

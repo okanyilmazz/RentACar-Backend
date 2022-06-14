@@ -41,7 +41,13 @@ namespace DataAccess.Concrete.EntityFramework
                      : context.Set<Color>().Where(filter).ToList();
             }
         }
-
+        public Color Get(Expression<Func<Color, bool>> filter)
+        {
+            using (RentACarContext context = new RentACarContext())
+            {
+                return context.Set<Color>().SingleOrDefault(filter);
+            }
+        }
         public void Update(Color entity)
         {
             using (RentACarContext context = new RentACarContext())

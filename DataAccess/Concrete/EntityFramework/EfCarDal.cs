@@ -41,6 +41,13 @@ namespace DataAccess.Concrete.EntityFramework
                      : context.Set<Car>().Where(filter).ToList();
             }
         }
+        public Car Get(Expression<Func<Car, bool>> filter)
+        {
+            using (RentACarContext context = new RentACarContext())
+            {
+                return context.Set<Car>().SingleOrDefault(filter);
+            }
+        }
 
         public void Update(Car entity)
         {

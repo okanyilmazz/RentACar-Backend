@@ -1,4 +1,5 @@
 ﻿using Business.Concrete;
+using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
 using System;
@@ -9,7 +10,7 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-
+            /*
             CarManager carManager = new CarManager(new InMemoryCarDal());
 
             //GetAll
@@ -82,6 +83,101 @@ namespace ConsoleUI
 
             Console.WriteLine(carManager.GetById(3).Description);
             Console.WriteLine("--------------------------------------");
+            */
+
+
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////// EntityFramework //////////////////////////////////
+
+            /*
+           carManager.Add(new Car
+           {
+               Id = 3,
+               BrandId = 2,
+               ColorId = 2,
+               DailyPrice = 500,
+               Description = "Passat Araba",
+               ModelYear = 2021
+           });*/
+            CarManager carManager = new CarManager(new EfCarDal());
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+
+            Console.WriteLine("---CAR - GET ALL---");
+            foreach (var car in carManager.GetAll())
+            {
+                Console.WriteLine(car.Description);
+            }
+            Console.WriteLine("\n");
+
+
+            Console.WriteLine("---BRAND ID---");
+            foreach (var car in carManager.GetAllByBrandId(2))
+            {
+                Console.WriteLine("Araba açıklaması : " + car.Description);
+                Console.WriteLine("Markası : " + brandManager.Get(2).Name);
+            }
+            Console.WriteLine("\n");
+
+            Console.WriteLine("---CAR GET ALL COLOR ID---");
+            foreach (var car in carManager.GetAllByColorId(2))
+            {
+                Console.WriteLine("Araba açıklaması : " + car.Description);
+                Console.WriteLine("Rengi : " + colorManager.GetById(2).Name);
+            }
+            Console.WriteLine("\n");
+
+            /*
+            colorManager.Add(new Color
+            {
+                Id = 1,
+                Name="Kırmızı"
+            });
+            colorManager.Add(new Color
+            {
+                Id = 2,
+                Name = "Sarı"
+            });
+            colorManager.Add(new Color
+            {
+                Id = 3,
+                Name = "Siyah"
+            });
+            */
+            Console.WriteLine("---COLOR - GET ALL---");
+
+
+            foreach (var color in colorManager.GetAll())
+            {
+                Console.WriteLine(color.Name);
+            }
+
+            Console.WriteLine("\n");
+
+
+
+            /*
+            brandManager.Add(new Brand
+            {
+                Id = 1,
+                Name = "Audi"
+            });
+            brandManager.Add(new Brand
+            {
+                Id = 2,
+                Name = "Passat"
+            });
+            brandManager.Add(new Brand
+            {
+                Id = 3,
+                Name = "BMW"
+            });*/
+
+            Console.WriteLine("---BRAND - GET ALL---");
+            foreach (var brand in brandManager.GetAll())
+            {
+                Console.WriteLine(brand.Name);
+            }
 
         }
     }

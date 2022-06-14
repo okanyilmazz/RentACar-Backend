@@ -23,6 +23,11 @@ namespace Business.Concrete
             if (car.Description.Length > 1 && car.DailyPrice > 0)
             {
                 _carDal.Add(car);
+                Console.WriteLine("Tebrikler araba kayıt edildi.");
+            }
+            else
+            {
+                Console.WriteLine("Lütfen alanları kontrol ediniz.");
             }
         }
 
