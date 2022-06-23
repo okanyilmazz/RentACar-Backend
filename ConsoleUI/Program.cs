@@ -10,7 +10,15 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            /*
+            //Odev7Gun();
+            //Odev8Gun();
+            Odev9Gun();
+        }
+
+
+
+        private static void Odev7Gun()
+        {
             CarManager carManager = new CarManager(new InMemoryCarDal());
 
             //GetAll
@@ -81,9 +89,9 @@ namespace ConsoleUI
 
             //GetById
 
-            Console.WriteLine(carManager.GetById(3).Description);
+            // Console.WriteLine(carManager.GetById(3).Description);
             Console.WriteLine("--------------------------------------");
-            */
+
 
 
 
@@ -99,10 +107,12 @@ namespace ConsoleUI
                Description = "Passat Araba",
                ModelYear = 2021
            });*/
+        }
+        private static void Odev8Gun()
+        {
             CarManager carManager = new CarManager(new EfCarDal());
             ColorManager colorManager = new ColorManager(new EfColorDal());
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-
             Console.WriteLine("---CAR - GET ALL---");
             foreach (var car in carManager.GetAll())
             {
@@ -177,6 +187,66 @@ namespace ConsoleUI
             foreach (var brand in brandManager.GetAll())
             {
                 Console.WriteLine(brand.Name);
+            }
+        }
+        private static void Odev9Gun()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            ColorManager colorManager = new ColorManager(new EfColorDal());
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+
+
+
+            Console.WriteLine("ID'si 1 olan marka : " + brandManager.Get(1).Name);
+            /*
+            brandManager.Add(new Brand
+            {
+                Id = 4,
+                Name = "Volvo"
+            });*/
+            foreach (var brand in brandManager.GetAll())
+            {
+                Console.WriteLine(brand.Name);
+            }
+
+
+
+            Console.WriteLine("ID'si 1 olan renk : " + colorManager.GetById(1).Name);
+
+            /* colorManager.Add(new Color
+             {
+                 Id = 4,
+                 Name = "Turkuaz"
+
+             });*/
+            foreach (var color in colorManager.GetAll())
+            {
+                Console.WriteLine(color.Name);
+            }
+
+            Console.WriteLine("ID'si 1 olan araba : " + carManager.GetById(1).Description);
+
+            /* carManager.Add(new Car
+             {
+                 Id = 4,
+                 BrandId = 4,
+                 ColorId = 4,
+                 DailyPrice = 250,
+                 Description = "Volvo bir araba",
+                 ModelYear = 2022
+             });*/
+
+            foreach (var car in carManager.GetAll())
+            {
+                Console.WriteLine(car.Description);
+            }
+
+
+            Console.WriteLine(" -------CAR DETAILS \n");
+
+            foreach (var car in carManager.GetCarDetails())
+            {
+                Console.WriteLine("Car Description : {0} Car Brand : {1} Car Color : {2} Car Daily Price : {3}",car.CarName,car.BrandName,car.ColorName,car.DailyPrice);
             }
 
         }
