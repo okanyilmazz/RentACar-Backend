@@ -32,7 +32,7 @@ namespace WebAPI
         {
 
             services.AddControllers();
-
+            /*
             services.AddSingleton<ICarService, CarManager>();
             services.AddSingleton<IBrandService, BrandManager>();
             services.AddSingleton<IColorService, ColorManager>();
@@ -47,7 +47,7 @@ namespace WebAPI
             services.AddSingleton<ICustomerDal, EfCustomerDal>();
             services.AddSingleton<IUserDal, EfUserDal>();
             services.AddSingleton<IRentalDal, EfRentalDal>();
-
+            */
 
             services.AddSwaggerGen(c =>
             {
