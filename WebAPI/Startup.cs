@@ -1,5 +1,8 @@
 using Business.Abstract;
 using Business.Concrete;
+using Core.DependencyResolvers;
+using Core.Extensions;
+using Core.Utilities.IoC;
 using Core.Utilities.Security.Encryption;
 using Core.Utilities.Security.Jwt;
 using DataAccess.Abstract;
@@ -36,13 +39,10 @@ namespace WebAPI
         {
 
             services.AddControllers();
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowOrigin",
-                    builder => builder.WithOrigins("http//localhost:3000"));
-            });
+            services.AddCors();
 
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
             {
@@ -58,22 +58,10 @@ namespace WebAPI
 
                 };
             });
-            /*
-            services.AddSingleton<ICarService, CarManager>();
-            services.AddSingleton<IBrandService, BrandManager>();
-            services.AddSingleton<IColorService, ColorManager>();
-            services.AddSingleton<ICustomerService, CustomerManager>();
-            services.AddSingleton<IUserService, UserManager>();
-            services.AddSingleton<IRentalService, RentalManager>();
 
-
-            services.AddSingleton<ICarDal, EfCarDal>();
-            services.AddSingleton<IBrandDal, EfBrandDal>();
-            services.AddSingleton<IColorDal, EfColorDal>();
-            services.AddSingleton<ICustomerDal, EfCustomerDal>();
-            services.AddSingleton<IUserDal, EfUserDal>();
-            services.AddSingleton<IRentalDal, EfRentalDal>();
-            */
+            services.AddDependencyResolvers(new ICoreModule[] {
+            new CoreModule()
+            });
 
             services.AddSwaggerGen(c =>
             {
