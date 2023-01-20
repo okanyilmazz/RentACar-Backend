@@ -23,17 +23,45 @@ namespace DataAccess.Concrete.EntityFramework
                              on c.ColorId equals co.Id
                              join b in context.Brands
                              on c.BrandId equals b.Id
+                             join f in context.Fuels
+                             on c.FuelId equals f.Id
+                             join t in context.Transmissions
+                             on c.TransmissionId equals t.Id
+                             join bd in context.Bodies
+                             on c.BodyId equals bd.Id
 
                              select new CarDetailDto
                              {
                                  CarId = c.Id,
                                  BrandId = b.Id,
                                  ColorId = co.Id,
+                                 FuelId = f.Id,
+                                 BodyId = bd.Id,
+                                 TransmissionId = t.Id,
                                  CarName = c.Description,
                                  BrandName = b.Name,
                                  ColorName = co.Name,
                                  ModelYear = c.ModelYear,
-                                 DailyPrice = c.DailyPrice
+                                 DailyPrice = c.DailyPrice,
+                                 BodyType = bd.Type,
+                                 FuelType = f.Type,
+                                 TransmissionType = t.Type,
+                                 AirConditioning = c.AirConditioning,
+                                 NumberOfPassengers = c.NumberOfPassengers,
+                                 Deposit = c.Deposit,
+                                 KilometerLimit = c.KilometerLimit,
+                                 Availability=c.Availability,
+
+
+                                 CarImages = ((from ci in context.CarImages
+                                               where (c.Id == ci.CarId)
+                                               select new CarImage
+                                               {
+                                                   CarId = ci.CarId,
+                                                   Id = ci.Id,
+                                                   Date = ci.Date,
+                                                   ImagePath = ci.ImagePath
+                                               }).ToList())
                              };
                 return filter == null
                     ? result.ToList()

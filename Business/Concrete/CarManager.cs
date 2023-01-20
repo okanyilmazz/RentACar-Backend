@@ -93,5 +93,30 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.CarId == id));
         }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailByBrandAndColor(int brandId, int colorId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(c => c.ColorId == colorId).Where(c => c.BrandId == brandId).ToList());
+        }
+
+        public IDataResult<List<CarDetailDto>> GetAllByBodyId(int id)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(b => b.BodyId == id));
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailByBrandAndBody(int brandId, int bodyId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(b => b.BrandId == brandId).Where(b => b.BodyId == bodyId).ToList());
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailByBodyAndColor(int bodyId, int colorId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(b => b.BodyId == bodyId).Where(b => b.ColorId == colorId).ToList());
+        }
+
+        public IDataResult<List<CarDetailDto>> GetCarDetailByBrandColorAndBody(int brandId, int colorId, int bodyId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(b => b.BrandId == brandId).Where(b => b.ColorId == colorId).Where(b=>b.BodyId== bodyId).ToList());
+        }
     }
 }

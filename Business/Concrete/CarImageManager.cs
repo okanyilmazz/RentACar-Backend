@@ -119,5 +119,6 @@ namespace Business.Concrete
             return new ErrorDataResult<List<CarImage>>(Messages.DefaultImageNotExists);
         }
 
+
     }
 }

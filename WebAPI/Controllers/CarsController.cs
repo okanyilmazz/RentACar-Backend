@@ -91,6 +91,61 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpGet("getallbybodyid")]
+
+        public IActionResult GetByBodyId(int id)
+        {
+            var result = _carService.GetAllByBodyId(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("GetCarDetailByBrandAndColor")]
+        public IActionResult GetCarDetailByBrandAndColor(int brandId, int colorId)
+        {
+            var result = _carService.GetCarDetailByBrandAndColor(brandId, colorId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("GetCarDetailByBrandAndBody")]
+        public IActionResult GetCarDetailByBrandAndBody(int brandId, int bodyId)
+        {
+            var result = _carService.GetCarDetailByBrandAndBody(brandId, bodyId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("GetCarDetailByBodyAndColor")]
+        public IActionResult GetCarDetailByBodyAndColor(int bodyId, int colorId)
+        {
+            var result = _carService.GetCarDetailByBodyAndColor(bodyId, colorId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("GetCarDetailByBrandColorAndBody")]
+        public IActionResult GetCarDetailByBrandColorAndBody(int brandId, int colorId, int bodyId)
+        {
+            var result = _carService.GetCarDetailByBrandColorAndBody(brandId, colorId, bodyId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
 
         [HttpPost("add")]
         public IActionResult Add(Car car)

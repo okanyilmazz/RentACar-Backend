@@ -66,6 +66,7 @@ namespace WebAPI
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
             });
         }
 
@@ -79,7 +80,7 @@ namespace WebAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
             }
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4201").AllowAnyHeader());
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4201","http://localhost:4101").AllowAnyHeader());
 
             app.UseHttpsRedirection();
 

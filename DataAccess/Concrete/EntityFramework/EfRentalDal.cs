@@ -17,22 +17,31 @@ namespace DataAccess.Concrete.EntityFramework
             using (RentACarContext rentACarContext = new RentACarContext())
             {
                 var result = from r in rentACarContext.Rentals
-                             join c in rentACarContext.Customers
-                             on r.CustomerId equals c.Id
                              join u in rentACarContext.Users
-                             on c.UserId equals u.Id
+                             on r.UserId equals u.Id
+                             join c in rentACarContext.Customers
+                             on u.Id equals c.UserId
                              join ca in rentACarContext.Cars
                              on r.CarId equals ca.Id
                              join b in rentACarContext.Brands
                              on ca.BrandId equals b.Id
-                             select new RentalDetailDto
+                             join lRent in rentACarContext.Locations
+                             on  r.RentLocationId equals lRent.Id
+                             join lReturn in rentACarContext.Locations
+                             on r.ReturnLocationId equals lReturn.Id
+                             select new RentalDetailDto 
                              {
                                  Id = r.Id,
                                  BrandName = b.Name,
                                  FirstName = u.FirstName,
                                  LastName = u.LastName,
                                  RentDate = r.RentDate,
-                                 ReturnDate = r.ReturnDate
+                                 RentTime=r.RentTime,
+                                 ReturnDate = r.ReturnDate,
+                                 ReturnTime = r.ReturnTime,
+                                RentLocationId=lRent.Id,
+                                ReturnLocationId=lReturn.Id,
+                                TotalPrice= r.TotalPrice
 
                              };
                 return result.ToList();
