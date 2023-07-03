@@ -9,7 +9,7 @@ namespace Entities.Concrete
 {
     public class Country : IEntity
     {
-        public int CountryId { get; set; }
+        public int Id { get; set; }
         public string CountryCode { get; set; }
         public string CountryName { get; set; }
         public string CountryAreaCode { get; set; }

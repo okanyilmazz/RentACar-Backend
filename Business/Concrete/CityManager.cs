@@ -30,7 +30,7 @@ namespace Business.Concrete
 
         public IDataResult<City> GetById(int id)
         {
-            return new SuccessDataResult<City>(_cityDal.Get(c => c.CityId == id));
+            return new SuccessDataResult<City>(_cityDal.Get(c => c.Id == id));
         }
 
         public IDataResult<List<City>> GetAll()

@@ -22,7 +22,7 @@ namespace WebAPI.Controllers
             _carService = carService;
         }
 
-        [Authorize(Roles = "User")]
+        //[Authorize(Roles = "User")]
         [HttpGet("getall")]
         public IActionResult GetAll()
         {

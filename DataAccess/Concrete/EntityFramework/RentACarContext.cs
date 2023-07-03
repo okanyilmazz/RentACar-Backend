@@ -13,7 +13,7 @@ namespace DataAccess.Concrete.EntityFramework
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=RentACar;Trusted_Connection=true");
+            optionsBuilder.UseSqlServer("Server=sql.athena.domainhizmetleri.com;Database=geziyosk_rentacar;User Id=geziyosk_rentacar;Password=2562323aa");
         }
         public DbSet<Car> Cars { get; set; }
         public DbSet<Brand> Brands { get; set; }
@@ -33,6 +33,7 @@ namespace DataAccess.Concrete.EntityFramework
         public DbSet<Location> Locations { get; set; }
         public DbSet<News> News { get; set; }
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Driver> Drivers { get; set; }
 
 
     }

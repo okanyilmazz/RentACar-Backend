@@ -31,7 +31,7 @@ namespace Business.Concrete
 
         public IDataResult<Country> GetById(int id)
         {
-            return new SuccessDataResult<Country>(_countryDal.Get(b => b.CountryId == id));
+            return new SuccessDataResult<Country>(_countryDal.Get(b => b.Id == id));
         }
 
         public IDataResult<List<Country>> GetAll()

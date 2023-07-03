@@ -32,7 +32,7 @@ namespace Business.Concrete
 
         public IDataResult<County> GetById(int id)
         {
-            return new SuccessDataResult<County>(_countyDal.Get(b => b.CountyId == id));
+            return new SuccessDataResult<County>(_countyDal.Get(b => b.Id == id));
         }
 
         public IDataResult<List<County>> GetAll()

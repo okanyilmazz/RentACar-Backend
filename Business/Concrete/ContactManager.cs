@@ -14,6 +14,7 @@ namespace Business.Concrete
     public class ContactManager : IContactService
     {
         IContactDal _contactDal;
+
         public ContactManager(IContactDal contactDal)
         {
             _contactDal = contactDal;

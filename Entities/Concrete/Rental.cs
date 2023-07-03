@@ -22,3 +22,5 @@ namespace Entities.Concrete
         public double TotalPrice { get; set; }
     }
 }
+
+

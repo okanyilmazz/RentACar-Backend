@@ -16,6 +16,7 @@ namespace Core.Utilities.Helpers
 
         public IResult Add(IFormFile file, string destinationFolderPath)
         {
+           
             string newFileName = Guid.NewGuid().ToString() + Path.GetExtension(file.FileName);
 
             IResult result = BusinessRules.Run(IsExistDestinationFolder(destinationFolderPath));

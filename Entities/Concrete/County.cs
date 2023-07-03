@@ -9,7 +9,7 @@ namespace Entities.Concrete
 {
     public class County : IEntity
     {
-        public int CountyId { get; set; }
+        public int Id { get; set; }
         public string CountyName { get; set; }
         public int CityId { get; set; }
     }

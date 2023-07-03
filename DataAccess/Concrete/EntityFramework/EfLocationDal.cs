@@ -18,11 +18,11 @@ namespace DataAccess.Concrete.EntityFramework
             {
                 var result = from l in context.Locations
                              join ci in context.Cities
-                             on l.CityId equals ci.CityId
+                             on l.CityId equals ci.Id
                              join co in context.Countries
-                             on l.CountryId equals co.CountryId
+                             on l.CountryId equals co.Id
                              join c in context.Counties
-                             on l.CountyId equals c.CountyId
+                             on l.CountyId equals c.Id
                              select new LocationDetailDto
                              {
                                  Id = l.Id,

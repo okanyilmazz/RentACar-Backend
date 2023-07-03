@@ -11,85 +11,75 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarImagesController : ControllerBase
+    public class DriversController : ControllerBase
     {
-        ICarImageService _carImageService;
 
-        public CarImagesController(ICarImageService carImageService)
+        IDriverService _driverService;
+
+        public DriversController(IDriverService driverService)
         {
-            _carImageService = carImageService;
+            _driverService = driverService;
         }
 
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _carImageService.GetAll();
+            var result = _driverService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-
         [HttpGet("getbyid")]
-        public IActionResult Get(int id)
+        public IActionResult GetById(int id)
         {
-            var result = _carImageService.GetById(id);
+            var result = _driverService.GetById(id);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-
         [HttpGet("getbycarid")]
         public IActionResult GetByCarId(int id)
         {
-            var result = _carImageService.GetByCarId(id);
+            var result = _driverService.GetByCarId(id);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-
-
         [HttpPost("add")]
-        public async Task<IActionResult> Add([FromForm(Name = ("Image"))] IFormFile formFile, [FromForm] CarImage carImage)
+        public IActionResult Add(Driver driver)
         {
-
-            var result =  _carImageService.Add(formFile, carImage);
+            var result = _driverService.Add(driver);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
-
         }
         [HttpPost("update")]
-        public IActionResult Update([FromForm(Name = "Image")] IFormFile file, [FromForm] CarImage carImage)
+        public IActionResult Update(Driver driver)
         {
-
-            var result = _carImageService.Update(file, carImage);
+            var result = _driverService.Update(driver);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
-
         }
         [HttpPost("delete")]
-        public IActionResult Delete(CarImage carImage)
+        public IActionResult Delete(Driver driver)
         {
-            var result = _carImageService.Delete(carImage);
+            var result = _driverService.Delete(driver);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
-
         }
-
-
     }
 }

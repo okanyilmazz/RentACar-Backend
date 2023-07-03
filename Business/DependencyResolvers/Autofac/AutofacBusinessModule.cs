@@ -37,6 +37,9 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<NewsManager>().As<INewsService>().SingleInstance();
             builder.RegisterType<ContactManager>().As<IContactService>().SingleInstance();
 
+            builder.RegisterType<DriverManager>().As<IDriverService>().SingleInstance();
+
+
             builder.RegisterType<FileHelper>().As<IFileHelper>().SingleInstance();
             builder.RegisterType<EfCarDal>().As<ICarDal>().SingleInstance();
             builder.RegisterType<EfBrandDal>().As<IBrandDal>().SingleInstance();
@@ -56,10 +59,12 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EfFuelDal>().As<IFuelDal>().SingleInstance();
             builder.RegisterType<EfTransmissionDal>().As<ITransmissionDal>().SingleInstance();
             builder.RegisterType<EfNewsDal>().As<INewsDal>().SingleInstance();
+            builder.RegisterType<EfDriverDal>().As<IDriverDal>().SingleInstance();
 
             builder.RegisterType<AuthManager>().As<IAuthService>().SingleInstance();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>().SingleInstance();
-            
+
+
 
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();

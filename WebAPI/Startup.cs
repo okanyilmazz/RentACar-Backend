@@ -37,9 +37,18 @@ namespace WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("myPolicy",
+                builder =>
+                {
+                    // Not a permanent solution, but just trying to isolate the problem
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
+            });
 
             services.AddControllers();
-            services.AddCors();
+
 
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
@@ -80,14 +89,14 @@ namespace WebAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
             }
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4201","http://localhost:4101").AllowAnyHeader());
+            
 
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseCors("myPolicy");
             app.UseAuthentication();
 
             app.UseAuthorization();

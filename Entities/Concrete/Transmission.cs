@@ -10,6 +10,6 @@ namespace Entities.Concrete
     public class Transmission : IEntity
     {
         public int Id { get; set; }
-        public string Type { get; set; }
+        public string TransmissionType { get; set; }
     }
 }

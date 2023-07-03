@@ -10,6 +10,6 @@ namespace Entities.Concrete
     public class Fuel : IEntity
     {
         public int Id { get; set; }
-        public string Type { get; set; }
+        public string FuelType { get; set; }
     }
 }
