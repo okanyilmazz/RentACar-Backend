@@ -7,47 +7,32 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FuelsController : ControllerBase
+    public class InvoicesController : ControllerBase
     {
-        IFuelService _fuelService;
+        IInvoiceService _invoiceService;
 
-        public FuelsController(IFuelService fuelService)
+        public InvoicesController(IInvoiceService invoiceService)
         {
-            _fuelService = fuelService;
+            _invoiceService = invoiceService;
         }
+
 
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _fuelService.GetAll();
+            var result = _invoiceService.GetAll();
             if (result.Success)
             {
                 return Ok(result);
             }
-            else
-            {
-                return BadRequest(result);
-            }
+            return BadRequest(result);
+
         }
 
         [HttpGet("getbyid")]
-        public IActionResult Get(int id)
+        public IActionResult GetById(int id)
         {
-            var result = _fuelService.Get(id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            else
-            {
-                return BadRequest(result);
-            }
-        }
-
-        [HttpPost("add")]
-        public IActionResult Add(Fuel fuel)
-        {
-            var result = _fuelService.Add(fuel);
+            var result = _invoiceService.GetById(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -55,10 +40,20 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("update")]
-        public IActionResult Update(Fuel fuel)
+        [HttpPost("add")]
+        public IActionResult Add(Invoice invoice)
         {
-            var result = _fuelService.Update(fuel);
+            var result = _invoiceService.Add(invoice);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpPost("update")]
+        public IActionResult Update(Invoice invoice)
+        {
+            var result = _invoiceService.Update(invoice);
             if (result.Success)
             {
                 return Ok(result);
@@ -67,14 +62,15 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Fuel fuel)
+        public IActionResult Delete(Invoice invoice)
         {
-            var result = _fuelService.Delete(fuel);
+            var result = _invoiceService.Delete(invoice);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
+
     }
 }

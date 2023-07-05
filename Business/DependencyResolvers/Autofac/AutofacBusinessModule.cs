@@ -39,6 +39,7 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterType<DriverManager>().As<IDriverService>().SingleInstance();
 
+            builder.RegisterType<InvoiceManager>().As<IInvoiceService>().SingleInstance();
 
             builder.RegisterType<FileHelper>().As<IFileHelper>().SingleInstance();
             builder.RegisterType<EfCarDal>().As<ICarDal>().SingleInstance();
@@ -60,6 +61,7 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EfTransmissionDal>().As<ITransmissionDal>().SingleInstance();
             builder.RegisterType<EfNewsDal>().As<INewsDal>().SingleInstance();
             builder.RegisterType<EfDriverDal>().As<IDriverDal>().SingleInstance();
+            builder.RegisterType<EfInvoiceDal>().As<IInvoiceDal>().SingleInstance();
 
             builder.RegisterType<AuthManager>().As<IAuthService>().SingleInstance();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>().SingleInstance();

@@ -34,6 +34,7 @@ namespace DataAccess.Concrete.EntityFramework
         public DbSet<News> News { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Driver> Drivers { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
 
 
     }
