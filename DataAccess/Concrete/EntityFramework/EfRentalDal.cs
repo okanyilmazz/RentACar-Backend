@@ -19,8 +19,6 @@ namespace DataAccess.Concrete.EntityFramework
                 var result = from r in rentACarContext.Rentals
                              join u in rentACarContext.Users
                              on r.UserId equals u.Id
-                             join c in rentACarContext.Customers
-                             on u.Id equals c.UserId
                              join ca in rentACarContext.Cars
                              on r.CarId equals ca.Id
                              join b in rentACarContext.Brands
@@ -32,6 +30,7 @@ namespace DataAccess.Concrete.EntityFramework
                              select new RentalDetailDto 
                              {
                                  Id = r.Id,
+                                 UserId= u.Id,
                                  BrandName = b.Name,
                                  FirstName = u.FirstName,
                                  LastName = u.LastName,
@@ -41,11 +40,16 @@ namespace DataAccess.Concrete.EntityFramework
                                  ReturnTime = r.ReturnTime,
                                 RentLocationId=lRent.Id,
                                 ReturnLocationId=lReturn.Id,
+                                RentDay=r.RentDay,
                                 TotalPrice= r.TotalPrice
-
                              };
                 return result.ToList();
             }
+        }
+
+        public List<RentalDetailDto> GetRentalDetailsByUserId(int id)
+        {
+            return (GetRentalDetails().Where(r=>r.UserId == id).ToList());
         }
     }
 }

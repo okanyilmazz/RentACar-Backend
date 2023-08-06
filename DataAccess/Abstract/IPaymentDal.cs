@@ -1,5 +1,4 @@
 ﻿using Entities.Concrete;
-using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Abstract
 {
-    public interface IInvoiceDal : IEntityRepository<Invoice>
+    public interface IPaymentDal:IEntityRepository<Payment>
     {
-        List<InvoiceDetailDto> GetDetailByUserId(int id);
     }
 }

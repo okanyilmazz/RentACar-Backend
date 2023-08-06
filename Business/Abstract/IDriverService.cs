@@ -13,6 +13,7 @@ namespace Business.Abstract
         IDataResult<List<Driver>> GetAll();
         IDataResult<Driver> GetById(int id);
         IDataResult<List<Driver>> GetByCarId(int id);
+        IDataResult<List<Driver>> GetByUserId(int id);
         IResult Add(Driver driver);
         IResult Update(Driver driver);
         IResult Delete(Driver driver);

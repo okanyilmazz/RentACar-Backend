@@ -45,6 +45,11 @@ namespace Business.Concrete
             return new SuccessDataResult<Driver>(_driverDal.Get(d => d.Id == id));
         }
 
+        public IDataResult<List<Driver>> GetByUserId(int id)
+        {
+            return new SuccessDataResult<List<Driver>>(_driverDal.GetAll(d => d.UserId == id));
+        }
+
         public IResult Update(Driver driver)
         {
             _driverDal.Update(driver);

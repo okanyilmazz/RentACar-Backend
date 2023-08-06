@@ -44,10 +44,32 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("getrentaldetailbyuserid")]
+        public IActionResult GetRentalDetailsByUserId(int id)
+        {
+            var result = _rentalService.GetRentalDetailsByUserId(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
             var result = _rentalService.Get(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getbyuserid")]
+        public IActionResult GetByUserId(int id)
+        {
+            var result = _rentalService.GetByUserId(id);
             if (result.Success)
             {
                 return Ok(result);

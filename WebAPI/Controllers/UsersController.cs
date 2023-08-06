@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Core.Entities.Concrete;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -31,6 +32,16 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpGet("getbymail")]
+        public IActionResult GetByMail(string email)
+        {
+            var result = _userService.GetByMail(email);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
         [HttpGet("getbyid")]
         public IActionResult GetById(int id)
         {
@@ -51,10 +62,22 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-        [HttpPost("update")]
-        public IActionResult Update(User user)
+        [HttpPost("userpartialupdate")]
+        public IActionResult UserPartialUpdate(UserPartialUpdateDto userDto)
         {
-            var result = _userService.Update(user);
+            var existingUserResult = _userService.GetById(userDto.Id);
+
+            if (!existingUserResult.Success)
+            {
+                return NotFound();
+            }
+
+            var existingUser = existingUserResult.Data;
+            existingUser.FirstName = userDto.FirstName;
+            existingUser.LastName = userDto.LastName;
+            existingUser.Email = userDto.Email;
+
+            var result = _userService.Update(existingUser);
             if (result.Success)
             {
                 return Ok(result);

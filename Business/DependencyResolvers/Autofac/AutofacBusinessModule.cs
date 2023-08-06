@@ -40,6 +40,7 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<DriverManager>().As<IDriverService>().SingleInstance();
 
             builder.RegisterType<InvoiceManager>().As<IInvoiceService>().SingleInstance();
+            builder.RegisterType<PaymentManager>().As<IPaymentService>().SingleInstance();
 
             builder.RegisterType<FileHelper>().As<IFileHelper>().SingleInstance();
             builder.RegisterType<EfCarDal>().As<ICarDal>().SingleInstance();
@@ -53,7 +54,6 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EfCountryDal>().As<ICountryDal>().SingleInstance();
             builder.RegisterType<EfCountyDal>().As<ICountyDal>().SingleInstance();
             builder.RegisterType<EfLocationDal>().As<ILocationDal>().SingleInstance();
-
             builder.RegisterType<EfContactDal>().As<IContactDal>().SingleInstance();
 
             builder.RegisterType<EfBodyDal>().As<IBodyDal>().SingleInstance();
@@ -62,6 +62,8 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EfNewsDal>().As<INewsDal>().SingleInstance();
             builder.RegisterType<EfDriverDal>().As<IDriverDal>().SingleInstance();
             builder.RegisterType<EfInvoiceDal>().As<IInvoiceDal>().SingleInstance();
+            builder.RegisterType<EfPaymentDal>().As<IPaymentDal>().SingleInstance();
+
 
             builder.RegisterType<AuthManager>().As<IAuthService>().SingleInstance();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>().SingleInstance();

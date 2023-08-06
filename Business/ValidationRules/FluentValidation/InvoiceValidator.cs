@@ -14,11 +14,9 @@ namespace Business.ValidationRules.FluentValidation
         {
             RuleFor(r => r.CountryId).NotEmpty();
             RuleFor(r => r.CityId).NotEmpty();
-            RuleFor(r => r.CountieId).NotEmpty();
+            RuleFor(r => r.CountyId).NotEmpty();
             RuleFor(r => r.Address).NotEmpty();
-            RuleFor(r => r.CompanyTitle).Empty();
-            RuleFor(r => r.TaxAdministration).Empty();
-            RuleFor(r => r.TaxNumber).Empty();
+
         }
 
     }
