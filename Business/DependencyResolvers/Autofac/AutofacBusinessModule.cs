@@ -36,11 +36,13 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<LocationManager>().As<ILocationService>().SingleInstance();
             builder.RegisterType<NewsManager>().As<INewsService>().SingleInstance();
             builder.RegisterType<ContactManager>().As<IContactService>().SingleInstance();
+            builder.RegisterType<ModelManager>().As<IModelService>().SingleInstance();
 
             builder.RegisterType<DriverManager>().As<IDriverService>().SingleInstance();
 
             builder.RegisterType<InvoiceManager>().As<IInvoiceService>().SingleInstance();
             builder.RegisterType<PaymentManager>().As<IPaymentService>().SingleInstance();
+            builder.RegisterType<CreditScoreManager>().As<ICreditScoreService>().SingleInstance();
 
             builder.RegisterType<FileHelper>().As<IFileHelper>().SingleInstance();
             builder.RegisterType<EfCarDal>().As<ICarDal>().SingleInstance();
@@ -63,6 +65,8 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<EfDriverDal>().As<IDriverDal>().SingleInstance();
             builder.RegisterType<EfInvoiceDal>().As<IInvoiceDal>().SingleInstance();
             builder.RegisterType<EfPaymentDal>().As<IPaymentDal>().SingleInstance();
+            builder.RegisterType<EfCreditScoreDal>().As<ICreditScoreDal>().SingleInstance();
+            builder.RegisterType<EfModelDal>().As<IModelDal>().SingleInstance();
 
 
             builder.RegisterType<AuthManager>().As<IAuthService>().SingleInstance();

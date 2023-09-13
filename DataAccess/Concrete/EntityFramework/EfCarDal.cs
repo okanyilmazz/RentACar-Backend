@@ -29,6 +29,8 @@ namespace DataAccess.Concrete.EntityFramework
                              on c.TransmissionId equals t.Id
                              join bd in context.Bodies
                              on c.BodyId equals bd.Id
+                             join m in context.Models
+                             on c.ModelId equals m.Id
 
                              select new CarDetailDto
                              {
@@ -38,7 +40,9 @@ namespace DataAccess.Concrete.EntityFramework
                                  FuelId = f.Id,
                                  BodyId = bd.Id,
                                  TransmissionId = t.Id,
-                                 CarName = c.Description,
+                                 ModelId = m.Id,
+                                 ModelName= m.Name,
+                                 Description = c.Description,
                                  BrandName = b.Name,
                                  ColorName = co.ColorName,
                                  ModelYear = c.ModelYear,
@@ -51,15 +55,13 @@ namespace DataAccess.Concrete.EntityFramework
                                  Deposit = c.Deposit,
                                  KilometerLimit = c.KilometerLimit,
                                  Availability=c.Availability,
-
-
+                                 CreditScore=c.CreditScore,
                                  CarImages = ((from ci in context.CarImages
                                                where (c.Id == ci.CarId)
                                                select new CarImage
                                                {
                                                    CarId = ci.CarId,
                                                    Id = ci.Id,
-                                                   Date = ci.Date,
                                                    ImagePath = ci.ImagePath
                                                }).ToList())
                              };

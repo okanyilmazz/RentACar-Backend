@@ -17,13 +17,15 @@ namespace Entities.Concrete
         public int FuelId { get; set; }
         public int BodyId { get; set; }
         public int TransmissionId { get; set; }
+        public int ModelId { get; set; }
         public int ModelYear { get; set; }
         public decimal DailyPrice { get; set; }
         public string Description { get; set; }
-        public int NumberOfPassengers { get; set; }
+        public string NumberOfPassengers { get; set; }
         public bool AirConditioning { get; set; }
         public double Deposit { get; set; }
         public int KilometerLimit { get; set; }
         public bool Availability { get; set; }
+        public int CreditScore { get; set; }
     }
 }

@@ -1,8 +1,10 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using System;
 using System.Collections.Generic;
@@ -26,6 +28,37 @@ namespace Business.Concrete
         {
             _paymentDal.Add(payment);
             return new Result(true, Messages.Added);
+        }
+
+        public IDataResult<Payment> Pay(PaymentPayDto paymentPayDto)
+        {
+            var getPayment = paymentPayDto.Payment;
+            var getTotalPrice = paymentPayDto.TotalPrice;
+            double usableBalanceLimit = getPayment.UsableBalanceLimit;
+            double newBalance;
+
+            IResult result = BusinessRules.Run(CheckBalance(getTotalPrice, usableBalanceLimit));
+            if (result != null)
+            {
+
+                return new DataResult<Payment>(getPayment, result.Success, result.Message);
+            }
+            newBalance = (usableBalanceLimit - getTotalPrice);
+
+            Payment newPayment = new Payment
+            {
+                Id = getPayment.Id,
+                CardMonth = getPayment.CardMonth,
+                CardName = getPayment.CardName,
+                CardNumber = getPayment.CardNumber,
+                CardSecurityCode = getPayment.CardSecurityCode,
+                CardYear = getPayment.CardYear,
+                UserId = getPayment.UserId,
+                UsableBalanceLimit = newBalance
+            };
+
+            return new SuccessDataResult<Payment>(newPayment, (Messages.SuccessfulPayment));
+
         }
 
         public IResult Delete(Payment payment)
@@ -53,6 +86,18 @@ namespace Business.Concrete
         {
             _paymentDal.Update(payment);
             return new Result(true, Messages.Updated);
+        }
+
+        private IResult CheckBalance(double totalPrice, double usableBalanceLimit)
+        {
+            if (totalPrice <= usableBalanceLimit)
+            {
+                return new SuccessResult();
+            }
+            else
+            {
+                return new Result(false,Messages.InsufficientBalance);
+            }
         }
     }
 }

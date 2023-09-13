@@ -54,5 +54,17 @@ namespace WebAPI.Controllers
             return BadRequest(result.Message);
 
         }
+
+        [HttpPost("updatePassword")]
+        public IActionResult UpdatePassword(UpdatePasswordDto updatePasswordDTO)
+        {
+            var result = _authService.UpdatePassword(updatePasswordDTO);
+            if (result.Success)
+
+                return Ok(result);
+
+            return BadRequest(result);
+
+        }
     }
 }

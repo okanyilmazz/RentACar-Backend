@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -73,6 +74,17 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpPost("pay")]
+        public IActionResult Pay(PaymentPayDto paymentPayDto)
+        {
+            var result = _paymentService.Pay(paymentPayDto);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
         [HttpGet("getbyuserid")]
         public IActionResult GetByUserId(int id)
         {
@@ -83,6 +95,7 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+
 
     }
 }

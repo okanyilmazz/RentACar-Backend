@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Aspects.Autofac.Caching;
 
 namespace Business.Concrete
 {
@@ -24,8 +25,9 @@ namespace Business.Concrete
             _carImageDal = carImageDal;
             _fileHelper = fileHelper;
         }
-
-        public IResult Add(IFormFile file, CarImage carImage)
+        [CacheRemoveAspect("ICarService.Get")]
+        [CacheRemoveAspect("ICarImageService.Get")]
+        public IResult Add(IFormFile file, CarImage carImage, string currentPath)
         {
             var countResult = BusinessRules.Run(CheckImageCount(carImage.Id));
             if (countResult != null)
@@ -33,12 +35,12 @@ namespace Business.Concrete
                 return countResult;
             }
 
-            var uploadResult = _fileHelper.Add(file, PathConstant.ImagesPath);
+            var uploadResult = _fileHelper.Add(file, currentPath);
 
             if (uploadResult.Success)
             {
                 carImage.ImagePath = uploadResult.Message;
-                carImage.Date = DateTime.UtcNow;
+                carImage.ImagePath = carImage.ImagePath.Replace(currentPath, "Uploads\\Images\\Cars\\");
             }
             _carImageDal.Add(carImage);
             return new SuccessResult();
@@ -64,7 +66,7 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.Id == id));
         }
-
+        [CacheAspect]
         public IDataResult<List<CarImage>> GetByCarId(int id)
         {
             var result = BusinessRules.Run(CheckImageExists(id));
@@ -81,7 +83,6 @@ namespace Business.Concrete
             if (updateResult.Success)
             {
                 carImage.ImagePath = updateResult.Message;
-                carImage.Date = DateTime.UtcNow;
 
                 _carImageDal.Update(carImage);
                 return new SuccessResult();

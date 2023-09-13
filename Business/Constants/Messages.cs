@@ -28,6 +28,11 @@ namespace Business.Constants
         public static string AccessTokenCreated="Access Token Oluşturuldu";
         public static string AuthorizationDenied = "Yetkiniz yok.";
         public static string GetClaims = "Yetkiler çekildi.";
+        public static string PasswordsDoNotMatch = "Parolalar eşleşmedi.";
+        public static string PasswordIsIncorrect = "Şifre yanlış.";
+        public static string PasswordUpdated = "Şifre değiştirildi.";
+        public static string InsufficientBalance = "Bakiyeniz yetersiz.";
+        public static string SuccessfulPayment = "Ödeme tamamlandı.";
 
     }
 }

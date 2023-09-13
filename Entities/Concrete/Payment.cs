@@ -16,6 +16,7 @@ namespace Entities.Concrete
         public int CardMonth { get; set; }
         public int CardYear { get; set; }
         public int CardSecurityCode { get; set; }
+        public double UsableBalanceLimit { get; set; }
 
     }
 }

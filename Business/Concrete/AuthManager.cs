@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants;
 using Core.Entities.Concrete;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.Jwt;
@@ -67,5 +68,45 @@ namespace Business.Concrete
             var accessToken = _tokenHelper.CreateToken(user, claims);
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
         }
+
+
+
+        public IResult UpdatePassword(UpdatePasswordDto updatePasswordDto)
+        {
+            IResult result = BusinessRules.Run(CheckIfPasswordsMatch(updatePasswordDto.NewPassword, updatePasswordDto.RepeatNewPassword)
+                );
+            if (result != null)
+            {
+                return result;
+            }
+
+            var userResult = _userService.GetById(updatePasswordDto.Id);
+
+            var passwordVerificationResult = HashingHelper.VerifyPasswordHash(updatePasswordDto.OldPassword, userResult.Data.PasswordHash, userResult.Data.PasswordSalt);
+            if (!passwordVerificationResult) return new ErrorResult(Messages.PasswordIsIncorrect);
+
+            byte[] passwordHash, passwordSalt;
+
+            HashingHelper.CreatePasswordHash(updatePasswordDto.NewPassword, out passwordHash, out passwordSalt);
+
+            userResult.Data.PasswordHash = passwordHash;
+            userResult.Data.PasswordSalt = passwordSalt;
+
+            var updateResult = _userService.Update(userResult.Data);
+            if (!updateResult.Success) return updateResult;
+
+            return new SuccessResult(Messages.PasswordUpdated);
+
+        }
+
+
+        private IResult CheckIfPasswordsMatch(string newPassword, string repeatNewPassword)
+        {
+            if (newPassword != repeatNewPassword)
+                return new ErrorResult(Messages.PasswordsDoNotMatch);
+
+            return new SuccessResult();
+        }
+
     }
 }
